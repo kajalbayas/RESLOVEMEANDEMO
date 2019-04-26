@@ -1,0 +1,81 @@
+
+
+  <br>
+  <br>
+
+<div class="col">
+    <div class="col-md-4">
+  <input type="text"  [(ngModel)]="searchText" placeholder="serach here">
+ </div>
+</div>
+ <br>
+ <br>
+ 
+
+ <div class="row">
+    <div class="col-md-8">
+        <div class="col-md-4">
+        <button type="button" class="btn btn-secondary btn-sm RbtnMargin"  (click)="getnavigate()">Add New Employee </button>
+    </div>
+   </div>
+  </div>
+ <br>
+ <br>
+ <br>
+ 
+
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table table-stripped">
+        <thead>
+          <th>ID:</th>
+          <th (click)="sort('name')" >Name <i class="fa" [ngClass]="{'fa-sort': column != 'name', 
+            'fa-sort-asc': (column == 'name' && isDesc), 
+            'fa-sort-desc': (column == 'name' && !isDesc) }" aria-hidden="true"></i></th>
+          <th (click)="sort('city')">City <i class="fa" [ngClass]="{'fa-sort': column != 'city', 
+            'fa-sort-asc': (column == 'city' && isDesc), 
+            'fa-sort-desc': (column == 'city' && !isDesc) }" aria-hidden="true"></i></th>
+          <th (click)="sort('designation')">Profile <i class="fa" [ngClass]="{'fa-sort': column != 'designation', 
+            'fa-sort-asc': (column == 'designation' && isDesc), 
+            'fa-sort-desc': (column == 'designation' && !isDesc) }" aria-hidden="true"></i></th>
+          <th (click)="sort('salary')">Salary<i class="fa" [ngClass]="{'fa-sort': column != 'salary', 
+            'fa-sort-asc': (column == 'salary' && isDesc), 
+            'fa-sort-desc': (column == 'salary' && !isDesc) }" aria-hidden="true"></i></th>
+          <th>Created At :</th>
+          <th>Modified On :</th>
+
+
+        </thead>
+       <!--|sorting:{property:column,direction:direction}})-->
+        <tbody>
+          <tr *ngFor="let empdetails of(emp|search: {name: searchText, city: searchText,  designation: searchText});let i=index" appColor [pricerange]="empdetails.salary">
+       
+            <td>{{i}}</td>
+            <td >{{empdetails.name | uppercase}}</td>
+            <td >{{empdetails.city | uppercase}}</td>
+            <td >{{empdetails.designation| uppercase}}</td>
+            <td >{{empdetails.salary|currency:'Rs '}}</td> 
+            <td>{{empdetails.created_at}}</td>
+            <td >{{empdetails.updated_at}}</td>
+          
+             <td>
+               <button type="button" class="btn btn-secondary btn-sm" (click)="getviewdeatils(empdetails._id)">View</button>
+             </td>
+             <td>
+              <button type="button" class="btn btn-secondary btn-sm" (click)="edit(empdetails._id)">Edit</button>
+            </td>
+             <td>
+                <button type="button" class="btn btn-secondary btn-sm" (click)="delete(empdetails._id)">Delete</button>
+              </td>
+           
+
+            </tr>
+         
+        </tbody>
+  
+      </table>
+    </div>
+  </div>
+  
+  
+<router-outlet></router-outlet>
